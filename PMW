@@ -1,0 +1,31 @@
+module PMW (input [7:0] brightness, input CLK, input LED_in)
+
+reg [7:0] counter, counter_next;
+reg LED_s, LED_next;
+
+output LED_o;
+
+assign LED_o = LED_s;
+
+
+always @(posedge CLK) begin
+	counter <= counter_next;
+	LED_s <= LED_next;
+end
+
+always @ (*) begin
+	if (counter == 8'hFF) begin
+		counter_next = 0;
+	end else begin
+		counter_next = counter+1;
+	end
+
+	if (counter < brightness) begin
+		LED_next = LED_in
+	end else begin
+		LED_next = 1'b0;
+	end
+end
+
+
+endmodule
